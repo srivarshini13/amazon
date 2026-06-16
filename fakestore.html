@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fake Store API</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+            margin-top: 40px;
+        }
+
+        input {
+            padding: 8px;
+            width: 180px;
+            font-size: 15px;
+        }
+
+        button {
+            padding: 8px 15px;
+            font-size: 15px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        img {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 5px;
+            background: white;
+        }
+
+        h3 {
+            margin-top: 15px;
+        }
+
+        p {
+            font-size: 18px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Product Search</h2>
+
+    <input type="number" id="productId" placeholder="Enter Product ID">
+    <button onclick="getProduct()">Search</button>
+
+    <br><br>
+
+    <img id="productImg" width="200">
+
+    <h3 id="productTitle"></h3>
+
+    <p id="productPrice"></p>
+
+    <script>
+        async function getProduct() {
+
+            let id = document.getElementById("productId").value;
+
+            let response = await fetch(
+                `https://fakestoreapi.com/products/${id}`
+            );
+
+            let data = await response.json();
+
+            document.getElementById("productImg").src = data.image;
+
+            document.getElementById("productTitle").innerHTML = data.title;
+
+            document.getElementById("productPrice").innerHTML =
+                "Price: $" + data.price;
+        }
+    </script>
+
+</body>
+</html>
